@@ -11,12 +11,17 @@
 class HexApplication {
 
 public:
+    HexApplication();
+    ~HexApplication();
     void create();
     void run();
-    ~HexApplication();
-    void open(std::string fp);
+    void openFile(std::string fp);
+    int viewWidth();
+    int viewHeight();
+    int byteCapacity();
+    int desiredHexWindowWidth();
 
-    const int bufferSize = 1024;
+    const int bufferMaxSize = 1024*1024*2; // 2mb
 
     bool running;
 
@@ -29,10 +34,36 @@ private:
     HexWindow * hexWindow;
     AsciiWindow * asciiWindow;
 
+    /**
+     * Current offset of the stream in the hex editor
+     */
+    int64_t editorOffset = 0;
+
+    /**
+     * Input stream we're presenting in the hex editor
+     */
     std::fstream fs;
-    uint8_t *  buffer = nullptr;
-    int64_t offset = 0;
-    int64_t inputSize = 0;
+
+    /**
+     * Total size of the input stream HexApplication::fs
+     */
+    int64_t streamSize = 0;
+
+    /**
+     * Offset in stream where buffer was read from
+     */
+    int64_t streamOffset = 0;
+
+    /**
+     * Temp buffer to hold data from stream
+     */
+    uint8_t * buffer = nullptr;
+
+    /**
+     * Size of above buffer
+     */
+    int64_t bufferSize = 0;
+
 };
 
 

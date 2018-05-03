@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "easylogging++.h"
 
 Window::Window() {
     if((handle = initscr()) == nullptr) {
@@ -13,22 +14,29 @@ Window::Window() {
 
     // interrupt, quit, suspend, and flow control characters are all passed through uninterpreted
     raw();
+
+    //cbreak();
+    //wtimeout(handle, 500);
 }
 
 Window::Window(WINDOW *handle) {
     this->handle = handle;
+    idlok(this->handle, true);
 }
 
 Window::~Window() {
-    endwin();
+    delwin(this->handle);
 }
 
 void Window::addString(std::string str) {
     waddstr(handle, str.c_str());
+    //waddnstr()
+    //waddchstr(handle, reinterpret_cast<const chtype*>(str.c_str()));
 }
 
 void Window::refresh() {
-    wrefresh(handle);
+    //wrefresh(handle);
+    wnoutrefresh(handle);
 }
 
 int Window::getInput() {
@@ -63,10 +71,14 @@ int Window::cursorY() {
     return getcury(handle);
 }
 
-void Window::clear() {
-    wclear(handle);
+void Window::erase() {
+    werase(handle);
 }
 
 void Window::draw() {
 
+}
+
+int Window::resize(int width, int height) {
+    return wresize(this->handle, height, width);
 }

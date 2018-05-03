@@ -7,11 +7,11 @@ class HexWindow : public Window {
 public:
     HexWindow(WINDOW * handle);
     void draw() override;
-    void setBuffer(uint8_t * buffer, int bufferSize);
+    void setBuffer(uint8_t * buffer, int64_t bufferSize);
 
 private:
     uint8_t * buffer = nullptr;
-    int bufferSize = 0;
+    int64_t bufferSize = 0;
 };
 
 

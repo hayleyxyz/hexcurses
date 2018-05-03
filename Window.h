@@ -16,18 +16,18 @@ public:
     int getInput();
     int width();
     int height();
+    int resize(int width, int height);
     int x();
     int y();
     int cursorX();
     int cursorY();
     void moveCursor(int x, int y);
-    void clear();
+    void erase();
     virtual void draw();
 
     template <class T>
     T * createSubWindow(int x, int y, int width, int height);
 
-protected:
     WINDOW* handle;
 
 };

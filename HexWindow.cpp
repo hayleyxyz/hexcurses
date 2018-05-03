@@ -8,7 +8,7 @@ HexWindow::HexWindow(WINDOW *handle) : Window(handle) {
 }
 
 void HexWindow::draw() {
-    this->clear();
+    this->erase();
 
     std::stringstream stream;
 
@@ -18,6 +18,7 @@ void HexWindow::draw() {
             uint8_t byte = buffer[(i * 16) + j];
 
             stream << std::hex << std::setfill('0') << std::setw(2) << static_cast<uint32_t>(byte);
+
             stream << ' ';
         }
     }
@@ -25,7 +26,7 @@ void HexWindow::draw() {
     this->addString(stream.str());
 }
 
-void HexWindow::setBuffer(uint8_t *buffer, int bufferSize) {
+void HexWindow::setBuffer(uint8_t *buffer, int64_t bufferSize) {
     this->buffer = buffer;
     this->bufferSize = bufferSize;
 }

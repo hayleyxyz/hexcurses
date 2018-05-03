@@ -8,7 +8,7 @@ AsciiWindow::AsciiWindow(WINDOW *handle) : Window(handle) {
 }
 
 void AsciiWindow::draw() {
-    this->clear();
+    this->erase();
 
     std::stringstream stream;
 
@@ -19,7 +19,7 @@ void AsciiWindow::draw() {
 
             std::string display = ".";
 
-            if(byte >= 33) {
+            if(byte >= 33 && byte <= 126) {
                 display = static_cast<char>(byte);
             }
 
@@ -30,7 +30,7 @@ void AsciiWindow::draw() {
     this->addString(stream.str());
 }
 
-void AsciiWindow::setBuffer(uint8_t *buffer, int bufferSize) {
+void AsciiWindow::setBuffer(uint8_t *buffer, int64_t bufferSize) {
     this->buffer = buffer;
     this->bufferSize = bufferSize;
 }

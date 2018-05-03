@@ -8,7 +8,7 @@ AddressWindow::AddressWindow(WINDOW * handle) : Window(handle) {
 }
 
 void AddressWindow::draw() {
-    this->clear();
+    this->erase();
 
     for (int i = 0; i < this->height(); ++i) {
         uint32_t address = this->startOffset + (i * 16);
